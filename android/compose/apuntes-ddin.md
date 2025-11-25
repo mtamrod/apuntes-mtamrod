@@ -10,7 +10,9 @@ En lugar de usar XML + Activities, la interfaz se construye solo con funciones K
 * Menos código y más rápido de escribir.
 * Mucho más flexible para diseños complejos.
 
+
 ---
+
 
 # 2. Composable
 
@@ -36,16 +38,16 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
+
 ---
+
 
 # 3. Esqueleto básico
 
 La estructura más típica de una pantalla moderna en Compose es:
 
 - 1º Scaffold → estructura general
-
 - 2º TopAppBar / BottomBar
-
 - 3º Contenido dentro de un Column o Box
 
 ```kotlin
@@ -93,7 +95,9 @@ fun PantallaPrincipal() {
 
 Dentro del ``Scaffold``, recibes ``padding`` para evitar que el contenido se solape con la barra.
 
+
 ---
+
 
 # 4. Layouts fundamentales:
 
@@ -102,6 +106,7 @@ Dentro del ``Scaffold``, recibes ``padding`` para evitar que el contenido se sol
 * **Box**
 
 Estos tres son el core del layout en Compose.
+
 
 ## 4.1. Column
 
@@ -128,6 +133,7 @@ Column(
 * Listas cortas
 * Contenido vertical
 
+
 ## 4.2. Row
 
 Coloca los elementos en horizontal, uno al lado del otro.
@@ -149,6 +155,7 @@ Row(
 * Filas con icono + texto
 * Alinear botones en una fila
 
+
 ## 4.3. Box
 
 Permite superponer elementos o alinear dentro del contenedor.
@@ -169,7 +176,10 @@ Box(
         modifier = Modifier.align(Alignment.BottomEnd)
     )
 }
+
+
 ```
+
 
 ## Para qué sirve:
 
@@ -177,4 +187,64 @@ Box(
 * Overlays
 * Posicionar elementos en esquinas
 
+
 ---
+
+
+# 5. Spacer
+
+``Spacer`` se usa para añadir espacio vacío donde quieras.
+
+```kotlin
+Column {
+    Text("Arriba")
+    Spacer(modifier = Modifier.height(16.dp))
+    Text("Abajo")
+}
+```
+
+
+---
+
+
+# 6. Arrangement & Alignment
+
+## Arrangement
+
+En un ``Column``:
+
+### ``verticalArrangement``
+
+Ordena elementos verticalmente:
+
+* Top
+* Center
+* Bottom
+* SpaceBetween
+* SpaceAround
+* spacedBy(…)
+
+
+En un ``Row``:
+
+### ``horizontalArrangement``
+
+Igual pero en horizontal.
+
+
+## Alignment
+
+``horizontalAlignment`` *(Column)* → alinea hijos horizontalmente  
+``verticalAlignment`` *(Row)* → alinea hijos verticalmente  
+``contentAlignment`` *(Box)* → alinea TODO el contenido dentro de la Box  
+
+Estas **NO** son modifiers. Son parámetros del layout.
+
+```kotlin
+Column(
+    verticalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally
+) {
+    Text("Centrado")
+}
+```
