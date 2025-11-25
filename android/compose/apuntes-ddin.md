@@ -108,7 +108,7 @@ Dentro del ``Scaffold``, recibes ``padding`` para evitar que el contenido se sol
 Estos tres son el core del layout en Compose.
 
 
-## 4.1. Column
+## 4.1. ``Column``
 
 Coloca los elementos uno debajo del otro.
 
@@ -134,7 +134,7 @@ Column(
 * Contenido vertical
 
 
-## 4.2. Row
+## 4.2. ``Row``
 
 Coloca los elementos en horizontal, uno al lado del otro.
 
@@ -156,7 +156,7 @@ Row(
 * Alinear botones en una fila
 
 
-## 4.3. Box
+## 4.3. ``Box``
 
 Permite superponer elementos o alinear dentro del contenedor.
 
@@ -191,9 +191,9 @@ Box(
 ---
 
 
-# 5. Spacer
+# 5. ``Spacer``
 
-``Spacer`` se usa para añadir espacio vacío donde quieras.
+Se usa para añadir espacio vacío donde quieras.
 
 ```kotlin
 Column {
@@ -203,9 +203,7 @@ Column {
 }
 ```
 
-
 ---
-
 
 # 6. Arrangement & Alignment
 
@@ -248,3 +246,37 @@ Column(
     Text("Centrado")
 }
 ```
+
+---
+
+# 7. Estados en compose
+
+Compose es declarativo:
+**si el estado cambia → la UI se cambia sola**
+
+## 7.1. ``remember``
+
+Guarda un valor en memoria mientras el composable siga vivo.
+Si el composable se recompone, el valor permanece.
+Si sales de la pantalla o se destruye la actividad → se pierde.
+
+```kotlin
+@Composable
+fun ContadorRemember() {
+    var contador by remember { mutableStateOf(0) }
+
+    Button(onClick = { contador++ }) {
+        Text("Clicks: $contador")
+    }
+}
+```
+
+### Para qué sirve
+
+* Contadores
+* Flags (isOpen, visible, etc.)
+* Estados temporales
+
+
+
+
