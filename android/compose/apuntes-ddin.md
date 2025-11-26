@@ -277,6 +277,69 @@ fun ContadorRemember() {
 * Flags (isOpen, visible, etc.)
 * Estados temporales
 
+## 7.2. ``rememberSaveable``
+
+Igual que remember, pero sobrevive a rotaciones o recreaciones de la actividad.
+
+```kotlin
+@Composable
+fun Formulario() {
+    var nombre by rememberSaveable { mutableStateOf("") }
+
+    TextField(
+        value = nombre,
+        onValueChange = { nombre = it },
+        label = { Text("Nombre") }
+    )
+}
+```
+
+### Para qué sirve
+
+* TextFields
+* Selección de pestañas
+* Contadores importantes
+* Formularios
+
+## 7.3. ``mutableStateOf``, ``mutableIntStateOf``, ``mutableFloatStateOf``
+
+Crean una variable observable.
+Cuando cambian → Compose redibuja los composables que la usan.
+
+```kotlin
+var contador by rememberSaveable { mutableIntStateOf(0) }
+```
+
+### Para qué sirve
+
+* Todo tipo de estados que quieres que afecten a la UI.
+
+## 7.4. ``derivedStateOf``
+
+Calcula un estado basado en otros, pero de forma eficiente.
+Solo se recalcula cuando sus dependencias cambian.
+
+```kotlin
+@Composable
+fun ListaFiltrada(lista: List<String>) {
+    val filtrada by remember(lista) {
+        derivedStateOf { lista.filter { it.startsWith("A") } }
+    }
+
+    LazyColumn {
+        items(filtrada) {
+            Text(it)
+        }
+    }
+}
+```
+
+### Para qué sirve
+
+* Listas filtradas
+* Contadores derivados
+* Estados calculados pesados
+
 
 
 
