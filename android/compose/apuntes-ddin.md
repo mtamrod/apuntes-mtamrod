@@ -586,3 +586,217 @@ Ajusta la opacidad del composable (0f = invisible, 1f = opaco).
 ```kotlin
 Text("Mitad visible", Modifier.alpha(0.5f))
 ```
+
+## 9.8. ``Modifier.offset(x, y)``
+
+Desplaza al composable de su posición original.
+
+### Para qué sirve
+
+* Microajustes de posición
+* Efectos flotantes
+* Animaciones manuales
+
+```kotlin
+Text(
+    "Movido",
+    Modifier.offset(x = 10.dp, y = 4.dp)
+)
+```
+
+## 9.9. ``Modifier.shadow(elevation)``
+
+Añade una sombra debajo del composable.
+
+### Para qué sirve
+
+* Efecto de tarjeta “flotante”
+* Profundidad visual
+* Diseño Material 3 personalizado
+
+```kotlin
+Box(
+    Modifier
+        .shadow(6.dp)
+        .background(Color.White)
+        .padding(16.dp)
+) {
+    Text("Con sombra")
+}
+```
+
+## 9.10. ``Modifier.clickable { }``
+
+Convierte cualquier composable en clicable.
+
+### Para qué sirve
+
+* Items de lista
+* Textos clicables
+* Cajas personalizadas
+  
+```kotlin
+Text(
+    "Púlsame",
+    Modifier.clickable { /* acción */ }
+)
+```
+
+# 10. Listas
+
+## 10.1. ``LazyColumn``
+
+Una lista vertical eficiente que solo renderiza los elementos visibles.
+
+```kotlin
+LazyColumn {
+    items(lista) { item ->
+        Text(item)
+    }
+}
+```
+
+### Para qué sirve
+
+* Listas de datos largas
+* Menú de opciones
+* Chats, listados, ajustes, etc.
+
+# 10.2. ``items`` y ``item``
+
+Funciones de LazyColumn para renderizar contenido.
+
+```kotlin
+LazyColumn {
+    item {
+        Text("Cabecera")
+    }
+    items(lista) { item ->
+        Text(item)
+    }
+    item {
+        Text("Pie de lista")
+    }
+}
+```
+
+## Para qué sirve
+
+* ``items(lista)`` → para listas completas
+* ``item { ... }`` → para un elemento puntual (cabecera, pie, etc.)
+
+# 10.3. Lista Horizontal (``LazyRow``)
+
+Versión horizontal de LazyColumn.
+
+```kotlin
+LazyRow(
+    horizontalArrangement = Arrangement.spacedBy(12.dp),
+    contentPadding = PaddingValues(horizontal = 16.dp)
+) {
+    items(lista) { item ->
+        Text(item)
+    }
+}
+```
+
+## Para qué sirve
+
+* Menús horizontales
+* Tarjetas desplazables
+* Carruseles tipo Netflix
+
+# 10.4. Dividers en listas
+
+Línea divisoria entre elementos.
+
+```kotlin
+LazyColumn {
+    items(lista) { item ->
+        Text(item, Modifier.padding(16.dp))
+        Divider()
+    }
+}
+```
+
+## Para qué sirve
+
+* Separa visualmente items
+* Estilo tipo “ajustes de Android”
+
+# 10.5. ``LazyVerticalGrid`` 
+
+Layout eficiente en forma de grid (rejilla vertical).
+
+## Para qué sirve
+
+* Galerías de imágenes
+* Catálogos
+* Pantallas tipo e-commerce
+
+```kotlin
+LazyVerticalGrid(
+    columns = GridCells.Fixed(2),
+    modifier = Modifier.fillMaxSize(),
+    contentPadding = PaddingValues(16.dp),
+    verticalArrangement = Arrangement.spacedBy(8.dp),
+    horizontalArrangement = Arrangement.spacedBy(8.dp)
+) {
+    items(lista) { item ->
+        Text(
+            text = item,
+            modifier = Modifier
+                .background(Color.LightGray)
+                .padding(8.dp)
+        )
+    }
+}
+```
+
+# 10.6. ``Sticky Headers``
+
+Cabeceras que se quedan pegadas arriba al hacer scroll.
+
+```kotlin
+LazyColumn {
+    stickyHeader {
+        Text(
+            "Sección A",
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.DarkGray)
+                .padding(8.dp),
+            color = Color.White
+        )
+    }
+
+    items(listaA) { item ->
+        Text(item, Modifier.padding(16.dp))
+    }
+
+    stickyHeader {
+        Text(
+            "Sección B",
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.DarkGray)
+                .padding(8.dp),
+            color = Color.White
+        )
+    }
+
+    items(listaB) { item ->
+        Text(item, Modifier.padding(16.dp))
+    }
+}
+```
+
+## Para qué sirve
+
+* Lista de contactos por letra
+* Ajustes con secciones
+* Índices agrupados
+
+
+
+
