@@ -455,4 +455,134 @@ Scaffold(
 }
 ```
 
+# 9. Modifiers Generales
 
+Los modifiers generales son los que puedes aplicar a casi cualquier composable, siempre que acepte el parámetro modifier.
+Son la base del diseño visual en Compose.
+
+## 9.1. ``Modifier.padding()``
+
+Añade espacio interno alrededor del composable.
+
+### Para qué sirve
+
+* Separar elementos
+* Evitar que el contenido se pegue a los bordes
+* Ajustar estructura visual
+
+```kotlin
+Text(
+    "Hola",
+    modifier = Modifier.padding(16.dp)
+)
+```
+
+## 9.2. ``Modifier.background(color)`` 
+
+Coloca un color de fondo detrás del composable.
+
+### Para qué sirve
+
+* Resaltar secciones
+* Crear cajas visuales sin Card
+* Fondos simples
+
+```kotlin
+Text(
+    "Con fondo",
+    modifier = Modifier
+        .background(Color.Yellow)
+        .padding(8.dp)
+)
+```
+
+## 9.3. ``Modifier.border()``
+
+Dibuja un borde alrededor del composable.
+
+### Para qué sirve
+
+* Resaltar un elemento
+* Delimitar áreas
+* Diseños de tarjetas personalizadas
+
+```kotlin
+Box(
+    Modifier
+        .size(80.dp)
+        .border(2.dp, Color.Black)
+)
+```
+
+## 9.4. ``Modifier.clip(shape)``
+
+Recorta el contenido con una forma (círculo, esquinas redondeadas…).
+
+### Para qué sirve
+
+* Avatares circulares
+* Imágenes con formas personalizadas
+* Tarjetas con esquinas curvas
+
+```kotlin
+Image(
+    painter = painterResource(R.drawable.avatar),
+    contentDescription = null,
+    modifier = Modifier
+        .size(64.dp)
+        .clip(CircleShape)
+)
+```
+
+## 9.5. ``Modifier.size()`` / ``width()`` / ``height()``
+Qué es
+
+Define un tamaño fijo para el composable.
+
+### Para qué sirve
+
+* Iconos
+* Cajas
+* Imágenes con tamaño exacto
+
+```kotlin
+Box(
+    Modifier
+        .size(80.dp)  // 80dp x 80dp
+        .background(Color.Red)
+)
+```
+
+## 9.6. ``Modifier.fillMaxSize()`` / ``fillMaxWidth()`` / ``fillMaxHeight()``
+Qué es
+
+El composable ocupa todo el espacio disponible.
+
+### Para qué sirve
+
+* Botones grandes
+* Pantallas enteras
+* Contenedores que deben adaptarse
+
+```kotlin
+Button(
+    onClick = {},
+    modifier = Modifier.fillMaxWidth()
+) {
+    Text("Aceptar")
+}
+```
+
+## 9.7. ``Modifier.alpha(valor)``
+
+Ajusta la opacidad del composable (0f = invisible, 1f = opaco).
+
+### Para qué sirve
+
+* Estados deshabilitados
+* Efectos visuales
+* Animaciones
+
+```kotlin
+Text("Mitad visible", Modifier.alpha(0.5f))
+```
