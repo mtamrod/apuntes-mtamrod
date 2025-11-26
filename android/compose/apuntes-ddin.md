@@ -340,6 +340,119 @@ fun ListaFiltrada(lista: List<String>) {
 * Contadores derivados
 * Estados calculados pesados
 
+---
 
+# 8. Modifiers por Scope
+
+Muchos modifiers solo funcionan dentro de ciertos layouts.
+
+## 8.1. RowScope / ColumnScope
+
+### ``Modifier.weight(factor)``
+
+Reparte espacio proporcional entre hijos.
+
+#### Para qué sirve
+
+* Hacer diseños tipo 30% / 70%
+* Fila responsive
+  
+```kotlin
+Row(Modifier.fillMaxWidth()) {
+    Text("1 parte", Modifier.weight(1f))
+    Text("2 partes", Modifier.weight(2f))
+}
+```
+
+### ``Modifier.align()`` (dentro de Row o Column)
+
+Alinea solo ese hijo dentro de la fila/columna.
+
+#### Para qué sirve
+
+* Centrar o mover hijos específicos
+
+```kotlin
+Column(Modifier.fillMaxWidth()) {
+    Text("Inicio")
+    Text("Centro", Modifier.align(Alignment.CenterHorizontally))
+    Text("Fin")
+}
+```
+
+## 8.2. BoxScope
+
+### ``Modifier.align(Alignment.X)``
+
+Alinea un hijo dentro de la Box.
+
+#### Para qué sirve
+
+* Overlays
+* Posicionamiento absoluto
+
+```kotlin
+Box(Modifier.size(150.dp)) {
+    Text("Centro", Modifier.align(Alignment.Center))
+    Text("Esquina", Modifier.align(Alignment.BottomEnd))
+}
+```
+
+### ``Modifier.matchParentSize()``
+
+El hijo ocupa TODO el tamaño de la Box.
+
+#### Para qué sirve
+
+* Fondos
+* Capas completas
+
+```kotlin
+Box(Modifier.size(120.dp)) {
+    Box(Modifier.matchParentSize().background(Color.Gray))
+    Text("Encima", Modifier.align(Alignment.Center))
+}
+```
+
+## 8.3. LazyItemScope
+
+### ``Modifier.fillParentMaxWidth()``
+
+El item ocupa todo el ancho de la celda.
+
+#### Para qué sirve
+
+* Items uniformes en listas
+
+```kotlin
+LazyColumn {
+    items(lista) { texto ->
+        Text(texto, Modifier.fillParentMaxWidth().padding(16.dp))
+    }
+}
+```
+
+## 8.4. Scaffold Content Padding
+
+Padding automático que evita que el contenido tape la TopBar/BottomBar.
+
+### Para qué sirve
+
+* Ajustar contenido internamente
+* Evitar solapamientos
+
+```kotlin
+Scaffold(
+    topBar = { TopAppBar(title = { Text("Ejemplo") }) }
+) { padding ->
+    Column(
+        modifier = Modifier
+            .padding(padding)
+            .fillMaxSize()
+    ) {
+        Text("Contenido seguro")
+    }
+}
+```
 
 
