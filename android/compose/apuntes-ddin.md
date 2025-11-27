@@ -706,25 +706,7 @@ LazyRow(
 * Tarjetas desplazables
 * Carruseles tipo Netflix
 
-# 10.4. Dividers en listas
-
-Línea divisoria entre elementos.
-
-```kotlin
-LazyColumn {
-    items(lista) { item ->
-        Text(item, Modifier.padding(16.dp))
-        Divider()
-    }
-}
-```
-
-## Para qué sirve
-
-* Separa visualmente items
-* Estilo tipo “ajustes de Android”
-
-# 10.5. ``LazyVerticalGrid`` 
+# 10.4. ``LazyVerticalGrid`` 
 
 Layout eficiente en forma de grid (rejilla vertical).
 
@@ -753,7 +735,7 @@ LazyVerticalGrid(
 }
 ```
 
-# 10.6. ``Sticky Headers``
+# 10.5. ``Sticky Headers``
 
 Cabeceras que se quedan pegadas arriba al hacer scroll.
 
@@ -796,6 +778,170 @@ LazyColumn {
 * Lista de contactos por letra
 * Ajustes con secciones
 * Índices agrupados
+
+---
+
+# 11. COMPONENTES MATERIAL 3
+
+Material 3 es la biblioteca oficial de UI de Android.
+Incluye botones, tarjetas, barras, cajas de texto y estructuras modernas.
+
+## 11.1. ``Text``
+
+Componente para mostrar texto.
+
+### Para qué sirve
+
+```kotlin
+Text(
+    text = "Hola, Compose!",
+    style = MaterialTheme.typography.titleLarge
+)
+```
+
+* Títulos
+* Descripciones
+* Etiquetas
+
+## 11.2. ``Button``
+
+Botón con estilo Material 3.
+
+```kotlin
+Button(onClick = { /* acción */ }) {
+    Text("Aceptar")
+}
+```
+
+## 11.3. ``TextField``
+
+Campo de texto editable.
+
+```kotlin
+var nombre by rememberSaveable { mutableStateOf("") }
+
+TextField(
+    value = nombre,
+    onValueChange = { nombre = it },
+    label = { Text("Nombre") }
+)
+```
+
+### Para qué sirve
+
+* Inputs de usuario
+* Formularios
+* Búsquedas
+
+## 11.4. ``Card``
+
+Contenedor con fondo, elevación o borde.
+
+```kotlin
+Card(
+    modifier = Modifier
+        .fillMaxWidth()
+        .padding(8.dp),
+    onClick = { /* acción */ }
+) {
+    Column(Modifier.padding(16.dp)) {
+        Text("Título")
+        Text("Descripción")
+    }
+}
+```
+
+### Para qué sirve
+
+* Items de lista
+* Productos
+* Tarjetas informativas
+
+## 11.8. ``Icon``
+
+Elemento visual para mostrar iconos.
+
+```kotlin
+Icon(Icons.Default.Info, contentDescription = null)
+```
+
+### Para qué sirve
+
+* Buttons
+* Listas
+* Navegación
+
+## 11.9. Divider
+
+Línea horizontal que separa contenido.
+
+```kotlin
+Column {
+    Text("Ajuste 1")
+    Divider()
+    Text("Ajuste 2")
+}
+```
+
+### Para qué sirve
+
+* Listas
+* Ajustes
+* Secciones
+
+
+## 11.13. ``TopAppBar``
+
+Barra superior al estilo Material.
+
+```kotlin
+TopAppBar(
+    title = { Text("Mi App") },
+    navigationIcon = {
+        IconButton(onClick = { }) {
+            Icon(Icons.Default.ArrowBack, contentDescription = null)
+        }
+    }
+)
+```
+
+### Para qué sirve
+
+* Títulos
+* Iconos de navegación
+* Acciones rápidas
+
+## 11.14. ``BottomAppBar``
+
+Barra inferior simple.
+
+```kotlin
+BottomAppBar {
+    IconButton(onClick = {}) {
+        Icon(Icons.Default.Home, contentDescription = null)
+    }
+}
+```
+
+### Para qué sirve
+
+* Navegación básica
+* Iconos y acciones inferiores
+
+
+## 11.15. ``FloatingActionButton``
+
+Botón flotante circular.
+
+```kotlin
+FloatingActionButton(onClick = { }) {
+    Icon(Icons.Default.Add, contentDescription = null)
+}
+```
+
+### Para qué sirve
+
+* Acción principal (añadir, crear, mensaje…)
 
 
 
