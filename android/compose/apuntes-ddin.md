@@ -662,7 +662,7 @@ LazyColumn {
 * Menú de opciones
 * Chats, listados, ajustes, etc.
 
-# 10.2. ``items`` y ``item``
+## 10.2. ``items`` y ``item``
 
 Funciones de LazyColumn para renderizar contenido.
 
@@ -680,12 +680,12 @@ LazyColumn {
 }
 ```
 
-## Para qué sirve
+### Para qué sirve
 
 * ``items(lista)`` → para listas completas
 * ``item { ... }`` → para un elemento puntual (cabecera, pie, etc.)
 
-# 10.3. Lista Horizontal (``LazyRow``)
+## 10.3. Lista Horizontal (``LazyRow``)
 
 Versión horizontal de LazyColumn.
 
@@ -700,17 +700,17 @@ LazyRow(
 }
 ```
 
-## Para qué sirve
+### Para qué sirve
 
 * Menús horizontales
 * Tarjetas desplazables
 * Carruseles tipo Netflix
 
-# 10.4. ``LazyVerticalGrid`` 
+## 10.4. ``LazyVerticalGrid`` 
 
 Layout eficiente en forma de grid (rejilla vertical).
 
-## Para qué sirve
+### Para qué sirve
 
 * Galerías de imágenes
 * Catálogos
@@ -735,7 +735,7 @@ LazyVerticalGrid(
 }
 ```
 
-# 10.5. ``Sticky Headers``
+## 10.5. ``Sticky Headers``
 
 Cabeceras que se quedan pegadas arriba al hacer scroll.
 
@@ -773,7 +773,7 @@ LazyColumn {
 }
 ```
 
-## Para qué sirve
+### Para qué sirve
 
 * Lista de contactos por letra
 * Ajustes con secciones
@@ -781,7 +781,7 @@ LazyColumn {
 
 ---
 
-# 11. COMPONENTES MATERIAL 3
+# 11. Componentes Material 3
 
 Material 3 es la biblioteca oficial de UI de Android.
 Incluye botones, tarjetas, barras, cajas de texto y estructuras modernas.
@@ -942,6 +942,236 @@ FloatingActionButton(onClick = { }) {
 ### Para qué sirve
 
 * Acción principal (añadir, crear, mensaje…)
+
+---
+
+# 12. Navegación en Compose
+
+## 12.1. Dependencias necesarias
+
+```kotlin
+implementation("androidx.navigation:navigation-compose:2.7.7")
+```
+
+## 12.2. ``NavController``
+
+Objeto que controla la navegación entre pantallas.
+
+```kotlin
+val navController = rememberNavController()
+```
+
+### Para qué sirve
+
+* Cambiar de pantalla
+* Volver atrás
+* Pasar parámetros entre pantallas
+
+## 12.3. ``NavHost``
+
+Define todas las rutas (pantallas) de la navegación.
+
+```kotlin
+NavHost(
+    navController = navController,
+    startDestination = "pantalla1"
+) {
+    composable("pantalla1") { Pantalla1(navController) }
+    composable("pantalla2") { Pantalla2(navController) }
+}
+```
+
+### Para qué sirve
+
+* Declarar qué pantallas existen
+* Asignar composables a las rutas
+
+## 12.4. Navegar entre pantallas: ``navController.navigate()``
+
+Función para ir a otra ruta.
+
+```kotlin
+Button(onClick = { navController.navigate("pantalla2") }) {
+    Text("Ir a pantalla 2")
+}
+```
+
+### Para qué sirve
+
+* Cambiar de pantalla desde un botón
+* Flujos de UI (login → home → perfil)
+
+---
+
+# 13. Imágenes en Compose
+
+## 14.1. ``Image`` (imágenes locales)
+
+Composable básico para mostrar imágenes dentro de la app (drawables).
+
+```kotlin
+Image(
+    painter = painterResource(R.drawable.mi_imagen),
+    contentDescription = "Descripción",
+    modifier = Modifier.size(120.dp)
+)
+```
+
+## 14.2. ``Image`` + ``contentScale``
+
+Ajusta cómo se adapta la imagen al espacio.
+
+### Para qué sirve
+
+* Recortar imagen
+* Cubrir contenedor
+* Ajustar tamaño proporcional
+
+### Tipos:
+
+* ``ContentScale.FillWidth``
+* ``ContentScale.Crop``
+* ``ContentScale.Fit``
+* ``ContentScale.FillBounds``
+
+```kotlin
+Image(
+    painter = painterResource(R.drawable.banner),
+    contentDescription = null,
+    modifier = Modifier
+        .fillMaxWidth()
+        .height(200.dp),
+    contentScale = ContentScale.Crop
+)
+```
+
+## 14.3. Cargar imágenes desde Internet (COIL)
+
+Coil es la librería recomendada para cargar imágenes remotas en Compose.
+
+### Dependencia en build.gradle
+
+```kotlin
+implementation("io.coil-kt:coil-compose:2.5.0")
+```
+
+## 14.4. AsyncImage
+
+Composable listo para cargar imágenes desde URLs con Coil.
+
+```kotlin
+AsyncImage(
+    model = "https://i.imgur.com/example.jpg",
+    contentDescription = null
+)
+```
+
+### Para qué sirve
+
+* Fotos de usuarios
+* Imágenes de API
+* Productos de catálogo
+* Banners de red
+
+
+
+## 14.6. Redondear imágenes (``clip`` + ``shape``)
+
+Usar clip para convertir la imagen en redonda o con esquinas.
+
+```kotlin
+Ejemplo (avatar redondo)
+AsyncImage(
+    model = url,
+    contentDescription = null,
+    modifier = Modifier
+        .size(80.dp)
+        .clip(CircleShape)
+)
+```
+
+### Para qué sirve
+
+* Avatares
+* Cards con imagen
+* Miniaturas
+
+## 14.7. Bordes en imágenes (``border``)
+
+Añade un borde alrededor de la imagen.
+
+```kotlin
+AsyncImage(
+    model = url,
+    contentDescription = null,
+    modifier = Modifier
+        .size(100.dp)
+        .clip(RoundedCornerShape(12.dp))
+        .border(2.dp, Color.Blue, RoundedCornerShape(12.dp))
+)
+```
+
+### Para qué sirve
+
+* Avatares destacados
+* Fotos seleccionadas
+* Decoración
+
+## 14.8. Imágenes dentro de una Card
+
+Combinación habitual en apps.
+
+### Para qué sirve
+
+* Productos
+* Noticias
+* Tarjetas visuales
+
+```kotlin
+Card(
+    modifier = Modifier.fillMaxWidth(),
+    shape = RoundedCornerShape(12.dp),
+    onClick = {}
+) {
+    AsyncImage(
+        model = url,
+        contentDescription = null,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(180.dp),
+        contentScale = ContentScale.Crop
+    )
+}
+```
+
+## 14.9. Imagen de fondo (``Box`` + ``matchParentSize``)
+
+Usar imagen como fondo detrás de contenido.
+
+```kotlin
+Box(Modifier.fillMaxSize()) {
+
+    AsyncImage(
+        model = url,
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier.matchParentSize()
+    )
+
+    Text(
+        "Contenido encima",
+        modifier = Modifier.align(Alignment.Center),
+        color = Color.White
+    )
+}
+```
+
+### Para qué sirve
+
+* Pantallas con fondo
+* Login estilizado
+* Portadas
+
 
 
 
